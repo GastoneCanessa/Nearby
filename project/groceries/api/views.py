@@ -2,11 +2,14 @@ from groceries.api.serializers import GreengrocerSerializer, PostSerializer
 from groceries.models import Greengrocer, Post
 from rest_framework import mixins
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from rest_framework.permissions import (
     IsAuthenticated, IsAuthenticatedOrReadOnly
     )
 from groceries.api.permissions import IsAuthorOrReadOnly
 from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
+from rest_framework import status
 
 
 class GreengrocerViewSet(
@@ -49,3 +52,10 @@ class PostViewSet(
         serializer.save(greengrocer=review_queryset)
 
      
+class LogoutVieSet(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        self.request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)
+

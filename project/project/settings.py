@@ -49,11 +49,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
+    'dj_rest_auth.registration',
+
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'rest_auth.registration',
  
     'groceries'
 ]
@@ -184,15 +185,8 @@ ACCOUNT_EMAIL_REQUIRED = (True)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',# aggiunto metodo tramite Token
+        'rest_framework.authentication.SessionAuthentication', # session autentication server per utilizzare l'autenticazione tramite la brouseble api
 
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
     )
-    # ,
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ),
-    # 'PAGE_SIZE': 2,
-    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-
 }
