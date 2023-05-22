@@ -2,6 +2,7 @@ from django.contrib.gis.db import models
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import fromstr
 from geopy.geocoders import Nominatim
+from groceries.storage_backend import PublicMediaStorage
 
 
 class Greengrocer(models.Model):
@@ -34,6 +35,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     greengrocer = models.ForeignKey(Greengrocer, on_delete=models.CASCADE)
+    immage_url = models.FileField(storage=PublicMediaStorage(), default=None)
     date_posted = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
