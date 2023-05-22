@@ -21,6 +21,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('groceries.api.urls')),
     path('api/api-auth/', include('rest_framework.urls')),  # aggiunge login logout browsable API
     path('api/dj-rest-auth/', include('dj_rest_auth.urls')),
     path("api/dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
