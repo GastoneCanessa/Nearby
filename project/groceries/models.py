@@ -14,12 +14,12 @@ class Greengrocer(models.Model):
     city = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     zip_code = models.PositiveIntegerField()
-    location = models.PointField()
+    location = models.PointField(default=None)
     
     def __str__(self):
         return self.name
 
-    def location(self):
+    def set_location(self):
         geolocator = Nominatim(user_agent="nearby_greengrocer")
         location = geolocator.geocode(f'{self.address}, {self.city}')
         self.location = fromstr(
@@ -27,7 +27,7 @@ class Greengrocer(models.Model):
             )
 
     def save(self, *args, **kwargs):
-        self.location()
+        self.set_location()
         super().save(*args, **kwargs)  # Call the "real" save() method.
         
 
